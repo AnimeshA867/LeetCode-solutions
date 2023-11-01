@@ -1,0 +1,43 @@
+Integer prev=null;
+        int count=1;
+        int maxCount=0;
+    public int[] findMode(TreeNode root) {
+        List<Integer> modes= new ArrayList();
+       
+         traverse(root,modes);
+        int[] ans= new int[modes.size()];
+        for(int i=0;i<modes.size();i++){
+            ans[i]=modes.get(i);
+        }
+        return ans;
+
+
+    }
+        public void traverse(TreeNode root, List<Integer> modes){
+            if(root==null){
+                return;
+            }
+            traverse(root.left, modes);
+            if(prev!=null){
+                if(prev==root.val){
+                    count++;
+                }else{
+                    count=1;
+                }
+            }
+                if(maxCount<count){
+                    maxCount=count;
+                    modes.clear();
+                    modes.add(root.val);
+
+                }else if(maxCount==count){
+                    modes.add(root.val);
+                }
+            prev=root.val;
+            traverse(root.right,modes);
+        }
+   
+        
+
+
+
